@@ -13,6 +13,7 @@ namespace Asteroids
         private Vector2f velocidade;
 
         private float angulo, aceleration;
+        private bool atirou = false;
 
         public Nave(Vector2f position) : base(position, new Vector2f(343f, 383f) * .15f) {
             //Mudar dps quando eu descobrir onde que fica os arquivos do projeto ._.
@@ -33,12 +34,13 @@ namespace Asteroids
 
             angulo += (500f * deltaTime) * dirTurn;
             if (dirThrottle != 0) {
-                float anguloRadiano = (angulo - 90f) * 0.0174533f;
+                float anguloRadiano = AnguloRad;
                 velocidade.X += MathF.Cos(anguloRadiano) * dirThrottle * aceleration * deltaTime;
                 velocidade.Y += MathF.Sin(anguloRadiano) * dirThrottle * aceleration * deltaTime;
             }
             else
                 velocidade *= 0.99f;
+            atirou = Keyboard.IsKeyPressed(Keyboard.Key.Space);
 
             position += velocidade;
 
@@ -49,5 +51,11 @@ namespace Asteroids
         public override void Draw(RenderTarget target) {
             target.Draw(sprite);
         }
+
+        public Vector2f Position { get => position; }
+
+        public float AnguloRad { get => (angulo - 90f) * 0.0174533f; }
+
+        public bool Atirou { get => atirou; }
     }
 }
