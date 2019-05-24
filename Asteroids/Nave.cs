@@ -12,11 +12,14 @@ namespace Asteroids
         private readonly Sprite sprite;
         private Vector2f velocidade;
 
-        private float angulo, aceleration;
+        private static readonly float maxTempoPassadoDisparo = .5f;
+
+        private float angulo, aceleration, tempoPassadoDisparo = maxTempoPassadoDisparo;
+        private bool atirou = false;
 
         public Nave(Vector2f position) : base(position, new Vector2f(343f, 383f) * .15f) {
             //Mudar dps quando eu descobrir onde que fica os arquivos do projeto ._.
-            textura = new Texture("C:\\Users\\Enzo\\Programas\\Asteroids\\Asteroids\\Asteroids\\Imagens\\player.png");
+            textura = Framework.TextureManager.Carregar("C:\\Users\\Enzo\\Programas\\Asteroids\\Asteroids\\Asteroids\\Imagens\\player.png");
             sprite = new Sprite(textura);
             velocidade = new Vector2f(0f, 0f);
 
@@ -33,12 +36,18 @@ namespace Asteroids
 
             angulo += (500f * deltaTime) * dirTurn;
             if (dirThrottle != 0) {
-                float anguloRadiano = (angulo - 90f) * 0.0174533f;
+                float anguloRadiano = AnguloRad;
                 velocidade.X += MathF.Cos(anguloRadiano) * dirThrottle * aceleration * deltaTime;
                 velocidade.Y += MathF.Sin(anguloRadiano) * dirThrottle * aceleration * deltaTime;
             }
             else
                 velocidade *= 0.99f;
+
+            atirou = Keyboard.IsKeyPressed(Keyboard.Key.Space) && tempoPassadoDisparo >= maxTempoPassadoDisparo;
+            if (atirou)
+                tempoPassadoDisparo = 0f;
+            else if (tempoPassadoDisparo < maxTempoPassadoDisparo)
+                tempoPassadoDisparo += deltaTime;
 
             position += velocidade;
 
@@ -49,5 +58,11 @@ namespace Asteroids
         public override void Draw(RenderTarget target) {
             target.Draw(sprite);
         }
+
+        public Vector2f Position { get => position; }
+
+        public float AnguloRad { get => (angulo - 90f) * 0.0174533f; }
+
+        public bool Atirou { get => atirou; }
     }
 }
