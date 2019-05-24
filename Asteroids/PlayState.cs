@@ -9,10 +9,14 @@ namespace Asteroids
         private Nave navezinha;
         private Texture texturaFundo;
         private Sprite fundo;
+
+        private List<Framework.GameObject> projeteis;
+
         public PlayState(RenderWindow window) : base(window) {
             navezinha = new Nave(new SFML.System.Vector2f(50f, 50f));
             texturaFundo = new Texture("C:\\Users\\Enzo\\Programas\\Asteroids\\Asteroids\\Asteroids\\Imagens\\space-pure.jpg");
             fundo = new Sprite(texturaFundo);
+            projeteis = new List<Framework.GameObject>();
         }
 
         public override void Update() {
