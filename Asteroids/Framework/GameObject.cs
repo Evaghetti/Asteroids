@@ -3,9 +3,9 @@ using SFML.Graphics;
 
 namespace Asteroids.Framework {
     abstract class GameObject {
-        protected Vector2f position, tamanho;
+        Vector2f position, tamanho;
 
-        public GameObject(Vector2f position, Vector2f tamanho) {
+        private GameObject(Vector2f position, Vector2f tamanho) {
             this.position = position;
             this.tamanho = tamanho;
         }
@@ -15,7 +15,15 @@ namespace Asteroids.Framework {
             return minhaCaixa.Intersects(outraCaixa);
         }
 
-        public abstract void Update(float deltaTime);
+        public bool ForaDaTela {
+            get {
+                FloatRect minhaCaixa = new FloatRect(position, tamanho), janela = new FloatRect(0f, 0f, 640f, 480f);
+
+                return !janela.Intersects(minhaCaixa);
+            }
+        }
+
+        public abstract float Update(float deltaTime);
         public abstract void Draw(RenderTarget target);
     }
 }
