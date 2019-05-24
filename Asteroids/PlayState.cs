@@ -29,6 +29,10 @@ namespace Asteroids
             for (int i = 0; i < projeteis.Count; i++) {
                 projeteis[i].Update(deltaTime);
 
+                if (projeteis[i].ForaDaTela) {
+                    projeteis.Remove(projeteis[i]);
+                    i--;
+                }
             }
         }
 

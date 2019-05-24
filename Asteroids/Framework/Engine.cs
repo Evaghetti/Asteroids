@@ -23,6 +23,7 @@ namespace Asteroids {
                     gameStateAtual.Draw();
                 }
 
+                Framework.TextureManager.liberar();
                 gameStateAtual = gameStateAtual.QualTrocar();
             }
         }
