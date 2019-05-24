@@ -12,7 +12,9 @@ namespace Asteroids
         private readonly Sprite sprite;
         private Vector2f velocidade;
 
-        private float angulo, aceleration;
+        private static readonly float maxTempoPassadoDisparo = .5f;
+
+        private float angulo, aceleration, tempoPassadoDisparo = maxTempoPassadoDisparo;
         private bool atirou = false;
 
         public Nave(Vector2f position) : base(position, new Vector2f(343f, 383f) * .15f) {
@@ -40,7 +42,12 @@ namespace Asteroids
             }
             else
                 velocidade *= 0.99f;
-            atirou = Keyboard.IsKeyPressed(Keyboard.Key.Space);
+
+            atirou = Keyboard.IsKeyPressed(Keyboard.Key.Space) && tempoPassadoDisparo >= maxTempoPassadoDisparo;
+            if (atirou)
+                tempoPassadoDisparo = 0f;
+            else if (tempoPassadoDisparo < maxTempoPassadoDisparo)
+                tempoPassadoDisparo += deltaTime;
 
             position += velocidade;
 
