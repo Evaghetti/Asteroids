@@ -15,6 +15,14 @@ namespace Asteroids.Framework {
             return minhaCaixa.Intersects(outraCaixa);
         }
 
+        public bool ForaDaTela {
+            get {
+                FloatRect minhaCaixa = new FloatRect(position, tamanho), janela = new FloatRect(0f, 0f, 640f, 480f);
+
+                return !janela.Intersects(minhaCaixa);
+            }
+        }
+
         public abstract float Update(float deltaTime);
         public abstract void Draw(RenderTarget target);
     }
