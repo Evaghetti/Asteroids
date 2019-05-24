@@ -5,7 +5,7 @@ using SFML.System;
 namespace Asteroids {
     abstract class GameState {
         protected RenderWindow window;
-        private static Clock relogio;
+        private static Clock relogio = new Clock();
         public GameState(RenderWindow window) {
             this.window = window;
             relogio.Restart();
