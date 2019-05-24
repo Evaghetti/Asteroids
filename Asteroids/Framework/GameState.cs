@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
 using SFML.Graphics;
+using SFML.System;
 
 namespace Asteroids {
     abstract class GameState {
         protected RenderWindow window;
-        private static Stopwatch relogio = new Stopwatch();
+        private static Clock relogio;
         public GameState(RenderWindow window) {
             this.window = window;
-            relogio.Start();
+            relogio.Restart();
         }
 
         public abstract void Update();
@@ -20,11 +20,7 @@ namespace Asteroids {
             return window.IsOpen;
         }
         public float GetDeltaTime() {
-            relogio.Stop();
-            float deltaTime = relogio.ElapsedTicks / 10000f;
-            relogio.Reset();
-            relogio.Start();
-            return deltaTime;
+            return relogio.Restart().AsSeconds();
         }
     }
 }
