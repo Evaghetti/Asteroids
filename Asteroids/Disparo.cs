@@ -12,7 +12,7 @@ namespace Asteroids
         public Disparo(Vector2f position, float escala, float anguloRad = 0f) : base(position, new Vector2f(500f, 890f) * escala) {
             this.anguloRad = anguloRad;
 
-            textura = Framework.TextureManager.Carregar("C:\\Users\\Enzo\\Programas\\Asteroids\\Asteroids\\Asteroids\\Imagens\\laser.png");
+            textura = Framework.TextureManager.Carregar("Imagens/laser.png");
             sprite = new Sprite(textura);
 
             sprite.Rotation = 57.2958f * anguloRad + 90f;

@@ -19,7 +19,7 @@ namespace Asteroids
 
         public Nave(Vector2f position) : base(position, new Vector2f(343f, 383f) * .15f) {
             //Mudar dps quando eu descobrir onde que fica os arquivos do projeto ._.
-            textura = Framework.TextureManager.Carregar("C:\\Users\\Enzo\\Programas\\Asteroids\\Asteroids\\Asteroids\\Imagens\\player.png");
+            textura = Framework.TextureManager.Carregar("Imagens/player.png");
             sprite = new Sprite(textura);
             velocidade = new Vector2f(0f, 0f);
 
