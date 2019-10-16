@@ -13,10 +13,10 @@ namespace Asteroids
         private List<Framework.GameObject> projeteis;
 
         public PlayState(RenderWindow window) : base(window) {
+            projeteis = new List<Framework.GameObject>();
             navezinha = new Nave(new SFML.System.Vector2f(50f, 50f));
             texturaFundo = new Texture("Imagens/space-pure.jpg");
             fundo = new Sprite(texturaFundo);
-            projeteis = new List<Framework.GameObject>();
         }
 
         public override void Update() {

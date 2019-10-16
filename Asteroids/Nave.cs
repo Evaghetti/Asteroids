@@ -3,6 +3,7 @@ using SFML.Window;
 using SFML.System;
 
 using System;
+using System.Collections.Generic;
 
 namespace Asteroids
 {
@@ -13,10 +14,15 @@ namespace Asteroids
         private Vector2f velocidade;
 
         private static readonly float maxTempoPassadoDisparo = .5f;
+        public static List<Framework.GameObject> Projeteis {
+            private get => Projeteis;
+            set {
+                if (Projeteis == null)
+                    Projeteis = value;
+            }
+        }
 
         private float angulo, aceleration, tempoPassadoDisparo = maxTempoPassadoDisparo;
-        private bool atirou = false;
-
         public Nave(Vector2f position) : base(position, new Vector2f(343f, 383f) * .15f) {
             //Mudar dps quando eu descobrir onde que fica os arquivos do projeto ._.
             textura = Framework.TextureManager.Carregar("Imagens/player.png");
@@ -43,8 +49,8 @@ namespace Asteroids
             else
                 velocidade *= 0.99f;
 
-            atirou = Keyboard.IsKeyPressed(Keyboard.Key.Space) && tempoPassadoDisparo >= maxTempoPassadoDisparo;
-            if (atirou)
+            Atirou = Keyboard.IsKeyPressed(Keyboard.Key.Space) && tempoPassadoDisparo >= maxTempoPassadoDisparo;
+            if (Atirou)
                 tempoPassadoDisparo = 0f;
             else if (tempoPassadoDisparo < maxTempoPassadoDisparo)
                 tempoPassadoDisparo += deltaTime;
@@ -63,6 +69,6 @@ namespace Asteroids
 
         public float AnguloRad { get => (angulo - 90f) * 0.0174533f; }
 
-        public bool Atirou { get => atirou; }
+        public bool Atirou { get; private set; }
     }
 }
