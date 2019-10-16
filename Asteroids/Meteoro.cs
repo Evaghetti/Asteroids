@@ -13,14 +13,16 @@ namespace Asteroids {
         private Animation animations;
         private Sprite sprite;
 
-        public Meteoro(float angulo) : base(new Vector2f(), new Vector2f(50f, 50f)) {
-            this.angulo = angulo;
-            this.position = new Vector2f(320f - MathF.Cos(AnguloRad) * 320f, 240f - MathF.Sin(AnguloRad) * 240f);
+        public bool PodeMultiplicar { get; } = false;
 
-            Console.WriteLine($"Meteoro: x{{{position.X}}}, y {{{position.Y}}} angulo {{{angulo}}}");
+        public Meteoro(float angulo, Vector2f position = default) : base(position, new Vector2f(50f, 50f)) {
+            this.angulo = angulo;
+            if (position == default) {
+                PodeMultiplicar = true;
+                this.position = new Vector2f(320f - MathF.Cos(AnguloRad) * 320f, 240f - MathF.Sin(AnguloRad) * 240f);
+            }
 
             sprite = new Sprite();
-            sprite.Origin = new Vector2f(.5f, .5f);
             sprite.Rotation = angulo;
             sprite.Scale = new Vector2f(0.25f, 0.25f);
 
@@ -45,5 +47,6 @@ namespace Asteroids {
         }
 
         public float AnguloRad { get => (angulo - 90f) * 0.0174533f; }
+        public Vector2f Position { get => position; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SFML.Graphics;
 using SFML.System;
 
@@ -51,6 +52,18 @@ namespace Asteroids
                 projeteis[i].Update(deltaTime);
 
                 if (projeteis[i].ForaDaTela) {
+                    projeteis.Remove(projeteis[i]);
+                    i--;
+                }
+                else if (meteoros.Any(m => m.ColidiuCom(projeteis[i]))) {
+                    Meteoro meteoroRemover = meteoros.Where(m => m.ColidiuCom(projeteis[i])).First();
+
+                    if (meteoroRemover.PodeMultiplicar) {
+                        meteoros.Add(new Meteoro((float)random.NextDouble() * 360f, meteoroRemover.Position));
+                        meteoros.Add(new Meteoro((float)random.NextDouble() * 360f, meteoroRemover.Position));
+                    }
+
+                    meteoros.Remove(meteoroRemover);
                     projeteis.Remove(projeteis[i]);
                     i--;
                 }
