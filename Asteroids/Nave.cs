@@ -23,7 +23,7 @@ namespace Asteroids
         }
 
         private float angulo, aceleration, tempoPassadoDisparo = maxTempoPassadoDisparo;
-        public Nave(Vector2f position) : base(position, new Vector2f(343f, 383f) * .15f) {
+        public Nave(Vector2f position) : base(position, new Vector2f(343f, 383f) * .15f, new Vector2f(-343f, -383f) * .075f) {
             //Mudar dps quando eu descobrir onde que fica os arquivos do projeto ._.
             textura = Framework.TextureManager.Carregar("Imagens/player.png");
             sprite = new Sprite(textura);
@@ -63,6 +63,7 @@ namespace Asteroids
 
         public override void Draw(RenderTarget target) {
             target.Draw(sprite);
+            base.Draw(target);
         }
 
         public Vector2f Position { get => position; }

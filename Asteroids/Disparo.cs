@@ -9,7 +9,7 @@ namespace Asteroids
         private Texture textura;
         private Sprite sprite;
         private float velocidade, anguloRad;
-        public Disparo(Vector2f position, float escala, float anguloRad = 0f) : base(position, new Vector2f(500f, 890f) * escala) {
+        public Disparo(Vector2f position, float escala, float anguloRad = 0f) : base(position, new Vector2f(500f, 890f) * escala, new Vector2f(-500f, -890f) * escala * .5f) {
             this.anguloRad = anguloRad;
 
             textura = Framework.TextureManager.Carregar("Imagens/laser.png");
@@ -30,6 +30,7 @@ namespace Asteroids
 
         public override void Draw(RenderTarget target) {
             target.Draw(sprite);
+            base.Draw(target);
         }
     }
 }
