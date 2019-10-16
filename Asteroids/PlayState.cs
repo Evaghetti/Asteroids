@@ -59,8 +59,10 @@ namespace Asteroids
                     Meteoro meteoroRemover = meteoros.Where(m => m.ColidiuCom(projeteis[i])).First();
 
                     if (meteoroRemover.PodeMultiplicar) {
-                        meteoros.Add(new Meteoro((float)random.NextDouble() * 360f, meteoroRemover.Position));
-                        meteoros.Add(new Meteoro((float)random.NextDouble() * 360f, meteoroRemover.Position));
+                        float grau = (meteoroRemover.AnguloRad / 0.0174533f) + 90f;
+
+                        meteoros.Add(new Meteoro((grau - 90f) + (float)random.NextDouble() * 180f, meteoroRemover.Position));
+                        meteoros.Add(new Meteoro((grau - 90f) + (float)random.NextDouble() * 180f, meteoroRemover.Position));
                     }
 
                     meteoros.Remove(meteoroRemover);
