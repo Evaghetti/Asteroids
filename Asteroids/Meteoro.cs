@@ -8,7 +8,7 @@ using System.Text;
 namespace Asteroids {
     class Meteoro : GameObject {
         private static readonly float velocidade = 5f;
-        private /*readonly*/ float angulo;
+        private readonly float angulo;
 
         private Animation animations;
         private Sprite sprite;
