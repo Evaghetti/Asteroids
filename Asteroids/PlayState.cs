@@ -13,6 +13,7 @@ namespace Asteroids
         private Sprite fundo;
 
         private List<Meteoro> meteoros;
+        private List<Explosao> explosoes;
         private List<Framework.GameObject> projeteis;
 
         private float tempoSpawnMeteoro = 0f;
@@ -23,6 +24,7 @@ namespace Asteroids
         public PlayState(RenderWindow window) : base(window) {
             meteoros = new List<Meteoro>();
             projeteis = new List<Framework.GameObject>();
+            explosoes = new List<Explosao>();
             navezinha = new Nave(new SFML.System.Vector2f(50f, 50f));
             texturaFundo = new Texture("Imagens/space-pure.jpg");
             random = new Random();
@@ -47,14 +49,14 @@ namespace Asteroids
 
             for (int i = 0; i < meteoros.Count; i++) {
                 meteoros[i].Update(deltaTime);
-                if (meteoros[i].ForaDaTela)
+                if (meteoros[i].PodeDeletar)
                     meteoros.RemoveAt(i--);
             }
 
             for (int i = 0; i < projeteis.Count; i++) {
                 projeteis[i].Update(deltaTime);
 
-                if (projeteis[i].ForaDaTela) {
+                if (projeteis[i].PodeDeletar) {
                     projeteis.Remove(projeteis[i]);
                     i--;
                 }
@@ -64,6 +66,8 @@ namespace Asteroids
                     if (meteoroRemover.PodeMultiplicar) {
                         float grau = (meteoroRemover.AnguloRad / 0.0174533f) + 90f;
 
+                        explosoes.Add(new Explosao(meteoroRemover.Position));
+
                         meteoros.Add(new Meteoro((grau - 90f) + (float)random.NextDouble() * 180f, meteoroRemover.Position));
                         meteoros.Add(new Meteoro((grau - 90f) + (float)random.NextDouble() * 180f, meteoroRemover.Position));
                     }
@@ -72,6 +76,12 @@ namespace Asteroids
                     projeteis.Remove(projeteis[i]);
                     i--;
                 }
+            }
+
+            for (int i = 0; i < explosoes.Count; i++) {
+                explosoes[i].Update(deltaTime);
+                if (explosoes[i].PodeDeletar)
+                    explosoes.RemoveAt(i--);
             }
         }
 
@@ -83,6 +93,8 @@ namespace Asteroids
                 projeteis[i].Draw(window);
             for (int i = 0; i < meteoros.Count; i++)
                 meteoros[i].Draw(window);
+            for (int i = 0; i < explosoes.Count; i++)
+                explosoes[i].Draw(window);
 
             window.Display();
         }
