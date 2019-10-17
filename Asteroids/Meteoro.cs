@@ -51,5 +51,12 @@ namespace Asteroids {
 
         public float AnguloRad { get => (angulo - 90f) * 0.0174533f; }
         public Vector2f Position { get => position; }
+
+        public override bool ForaDaTela {
+            get {
+                Console.WriteLine($"X: {position.X}\tY:{position.Y}\tD:{MathF.Sqrt(MathF.Pow(320f - position.X, 2) + MathF.Pow(240f - position.Y, 2))}");
+                return base.ForaDaTela && MathF.Sqrt(MathF.Pow(320f - position.X, 2) + MathF.Pow(240f - position.Y, 2)) >= 320f;
+            }
+        }
     }
 }

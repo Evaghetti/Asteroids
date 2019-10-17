@@ -45,8 +45,11 @@ namespace Asteroids
             if (navezinha.Atirou)
                 projeteis.Add(new Disparo(navezinha.Position, .05f, navezinha.AnguloRad));
 
-            for (int i = 0; i < meteoros.Count; i++)
+            for (int i = 0; i < meteoros.Count; i++) {
                 meteoros[i].Update(deltaTime);
+                if (meteoros[i].ForaDaTela)
+                    meteoros.RemoveAt(i--);
+            }
 
             for (int i = 0; i < projeteis.Count; i++) {
                 projeteis[i].Update(deltaTime);
