@@ -66,11 +66,11 @@ namespace Asteroids
                     if (meteoroRemover.PodeMultiplicar) {
                         float grau = (meteoroRemover.AnguloRad / 0.0174533f) + 90f;
 
-                        explosoes.Add(new Explosao(meteoroRemover.Position));
-
                         meteoros.Add(new Meteoro((grau - 90f) + (float)random.NextDouble() * 180f, meteoroRemover.Position));
                         meteoros.Add(new Meteoro((grau - 90f) + (float)random.NextDouble() * 180f, meteoroRemover.Position));
                     }
+
+                    explosoes.Add(new Explosao(meteoroRemover.Position));
 
                     meteoros.Remove(meteoroRemover);
                     projeteis.Remove(projeteis[i]);
