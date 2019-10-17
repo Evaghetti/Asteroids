@@ -21,8 +21,8 @@ namespace Asteroids.Framework {
             animations = new Dictionary<string, Intervalo>();
             frames = new List<IntRect>();
 
-            for (int x = 0; x < larguraSprite * quantSpriteX; x += larguraSprite) {
-                for (int y = 0; y < alturaSprite * quantSpriteY; y += alturaSprite)
+            for (int y = 0; y < alturaSprite * quantSpriteY; y += alturaSprite)  {
+                for (int x = 0; x < larguraSprite * quantSpriteX; x += larguraSprite)
                     frames.Add(new IntRect(x, y, larguraSprite, alturaSprite));
             }
 
@@ -69,6 +69,8 @@ namespace Asteroids.Framework {
         public void AplicarFrame(ref Sprite alvo) {
             alvo.TextureRect = FrameAtual;
         }
+
+        public bool Terminou => IntervaloAtual.frameAtual + 1 >= IntervaloAtual.fim;
         
         private struct Intervalo {
             public int inicio;
